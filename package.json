@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/strapi": "^1.6.1",
+    "@nuxtjs/tailwindcss": "^6.1.1",
+    "nuxt": "3.0.0-rc.12",
+    "prettier": "2.7.1"
+  },
+  "dependencies": {
+    "@formkit/nuxt": "^1.0.0-beta.11",
+    "@nuxt/ui-templates": "npm:@nuxt/ui-templates-edge@^0.4.0-27759645.4e7250c",
+    "mitt": "^3.0.0"
+  }
+}
