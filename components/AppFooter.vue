@@ -1,13 +1,9 @@
 <template>
-<div>asd</div>
+  <div>{{ user }}</div>
 </template>
 
-<script>
-export default {
-  name: "AppFooter"
-}
+<script setup>
+const user = useStrapiUser();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

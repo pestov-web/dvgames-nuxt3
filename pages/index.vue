@@ -1,21 +1,25 @@
 <template>
-  <div>
-    <h1>{{ token }}</h1>
-    <ul>
-      <li v-for="article of articles.data" :key="article.id">
-        <h2>{{ article.attributes.title }}</h2>
-        <h3>{{ article.attributes.description }}</h3>
-      </li>
-    </ul>
-  </div>
+  <section>
+    <div class="grid">
+      <h1>Новости</h1>
+      <NewsList :articles="articles.data" />
+      <div>{{}}</div>
+    </div>
+  </section>
 </template>
 
 <script setup>
-const token = useStrapiToken();
-const { fetchUser } = useStrapiAuth();
-const user = await fetchUser();
+import NewsList from "../components/NewsList";
 const { find } = useStrapi();
-const articles = await find("articles");
+
+const {
+  data: articles,
+  pending,
+  refresh,
+  error,
+} = await useAsyncData("restaurant", () =>
+  find("articles", { populate: "image" })
+);
 </script>
 
 <style scoped></style>

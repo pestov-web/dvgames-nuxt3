@@ -72,20 +72,17 @@
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <nuxt-link
                   to="/"
-                  class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  active-class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                   aria-current="page"
                   >Главная</nuxt-link
                 >
-
                 <nuxt-link
-                  to="/register"
+                  v-for="category of categories.data"
+                  :to="'/category/' + category.attributes.slug"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >регистрация</nuxt-link
-                >
-                <nuxt-link
-                  to="/login"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >вход</nuxt-link
+                  active-class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >{{ category.attributes.name }}</nuxt-link
                 >
               </div>
             </div>
@@ -93,6 +90,22 @@
           <div
             class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
+            <div class="flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+
+              <nuxt-link
+                to="/register"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                active-class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                >регистрация</nuxt-link
+              >
+              <nuxt-link
+                to="/login"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                active-class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                >вход</nuxt-link
+              >
+            </div>
             <button
               type="button"
               class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -127,10 +140,10 @@
                   aria-haspopup="true"
                   @click="handleToggleProfileMenu"
                 >
-                  <span class="sr-only">Open user menu</span>
+                  <span class="sr-only">Меню пользователя</span>
                   <img
                     class="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    :src="'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
                     alt=""
                   />
                 </button>
@@ -155,13 +168,13 @@
                 tabindex="-1"
               >
                 <!-- Active: "bg-gray-100", Not Active: "" -->
-                <a
-                  href="#"
+                <nuxt-link
+                  to="/user/me"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-0"
-                  >Профиль</a
+                  >Профиль</nuxt-link
                 >
                 <a
                   href="#"
@@ -226,6 +239,15 @@ const burgerMenu = ref(false);
 const { logout } = useStrapiAuth();
 const router = useRouter();
 const emitter = useEmitter();
+const user = useStrapiUser();
+const { find } = useStrapi();
+
+const {
+  data: categories,
+  pending,
+  refresh,
+  error,
+} = await useAsyncData("categories", () => find("categories"));
 
 emitter.$on("toggleProfileMenu", () => {
   profileMenu.value = !profileMenu.value;
