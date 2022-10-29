@@ -6,7 +6,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start-pm2": "./node_modules/pm2/bin/pm2 start npm --name 'dvg-front' -- preview"
+    "start-pm2": "./node_modules/pm2/bin/pm2 preview npm --name 'dvg-front' -- start"
   },
   "devDependencies": {
     "@nuxt/image": "^0.7.1",
