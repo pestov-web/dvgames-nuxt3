@@ -1,3 +1,3 @@
 export default function media() {
-  return "http://127.0.0.1:1337";
+  return "http://apid.pestov-web.ru";
 }
