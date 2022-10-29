@@ -10,7 +10,7 @@ const { data: articles } = await useAsyncData(
   `${route.params.slug}Articles`,
   () =>
     $fetch(
-      `http://127.0.0.1:1337/api/articles?filters[category][slug][$eq]=${route.params.slug}&populate=*`
+      `http://apid.pestov-web.ru/api/articles?filters[category][slug][$eq]=${route.params.slug}&populate=*`
     )
 );
 </script>
