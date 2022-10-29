@@ -145,8 +145,10 @@
                   <img
                     class="h-8 w-8 rounded-full"
                     :src="
-                      'http://127.0.0.1:1337' +
-                      user.picture.formats.thumbnail.url
+                      user.picture
+                        ? getStrapiUrl + user.picture.url
+                        : getStrapiUrl +
+                          '/uploads/dvgames_7670e7bf02.jpg?updated_at=2022-10-29T14:04:13.664Z'
                     "
                     alt=""
                   />
@@ -227,6 +229,8 @@
 </template>
 
 <script setup>
+import getStrapiMedia from "../composables/media";
+
 const profileMenu = ref(false);
 const burgerMenu = ref(false);
 const { logout } = useStrapiAuth();
@@ -234,6 +238,7 @@ const router = useRouter();
 const emitter = useEmitter();
 const user = useStrapiUser();
 const { find } = useStrapi();
+const getStrapiUrl = media();
 
 const {
   data: categories,

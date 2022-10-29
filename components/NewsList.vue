@@ -15,10 +15,7 @@
           <figure>
             <!--            Image-->
             <img
-              :src="
-                'http://127.0.0.1:1337' +
-                article.attributes.image.data.attributes.url
-              "
+              :src="getStrapiUrl + article.attributes.image.data.attributes.url"
               class="rounded-t h-32 w-full object-cover"
             />
 
@@ -43,6 +40,7 @@
 </template>
 
 <script setup>
+const getStrapiUrl = media();
 const props = defineProps({
   articles: {
     type: Array,

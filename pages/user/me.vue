@@ -1,6 +1,7 @@
 <template>
   <div class="m-8">
     <div
+      v-if="user"
       class="w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
     >
       <div class="flex justify-end px-4 pt-4">
@@ -44,8 +45,13 @@
       <div class="flex flex-col items-center pb-10">
         <img
           class="mb-3 w-24 h-24 rounded-full shadow-lg"
-          :src="'http://127.0.0.1:1337' + user.picture.formats.small.url"
-          alt="Bonnie image"
+          :src="
+            user.picture
+              ? getStrapiUrl + user.picture.url
+              : getStrapiUrl +
+                '/uploads/dvgames_7670e7bf02.jpg?updated_at=2022-10-29T14:04:13.664Z'
+          "
+          :alt="user.username"
         />
 
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
@@ -68,11 +74,13 @@
         </div>
       </div>
     </div>
+    <h2>{{}}</h2>
   </div>
 </template>
 
 <script setup>
 const user = useStrapiUser();
+const getStrapiUrl = media();
 </script>
 
 <style scoped></style>
