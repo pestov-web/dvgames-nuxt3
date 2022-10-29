@@ -1,25 +1,25 @@
 <template>
   <section class="bg-gray-100 dark:bg-gray-900 py-10 px-12">
-    <!-- Card Grid -->
+    <h2>Новости</h2>
     <div
       class="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
-      <!-- Card Item -->
+      <!--      Card Item-->
       <div
         v-for="article of articles"
         :key="article.id"
-        class="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1"
+        class="rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1"
       >
         <!-- Clickable Area -->
         <a href="#" class="cursor-pointer">
           <figure>
-            <!-- Image -->
+            <!--            Image-->
             <img
               :src="
                 'http://127.0.0.1:1337' +
                 article.attributes.image.data.attributes.url
               "
-              class="rounded-t h-72 w-full object-cover"
+              class="rounded-t h-32 w-full object-cover"
             />
 
             <figcaption class="p-4">

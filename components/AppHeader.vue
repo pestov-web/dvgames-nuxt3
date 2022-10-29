@@ -90,7 +90,7 @@
           <div
             class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
-            <div class="flex space-x-4">
+            <div class="flex space-x-4" v-if="!user">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
               <nuxt-link
@@ -107,6 +107,7 @@
               >
             </div>
             <button
+              v-if="user"
               type="button"
               class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
@@ -130,7 +131,7 @@
             </button>
 
             <!-- Profile dropdown -->
-            <div class="relative ml-3">
+            <div class="relative ml-3" v-if="user">
               <div>
                 <button
                   type="button"
@@ -143,7 +144,10 @@
                   <span class="sr-only">Меню пользователя</span>
                   <img
                     class="h-8 w-8 rounded-full"
-                    :src="'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+                    :src="
+                      'http://127.0.0.1:1337' +
+                      user.picture.formats.thumbnail.url
+                    "
                     alt=""
                   />
                 </button>
@@ -174,6 +178,7 @@
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-0"
+                  @click="handleToggleProfileMenu"
                   >Профиль</nuxt-link
                 >
                 <a
@@ -203,29 +208,17 @@
       <div :class="!burgerMenu && 'hidden'" id="mobile-menu">
         <div class="space-y-1 px-2 pt-2 pb-3">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a
-            href="#"
+          <nuxt-link
+            to="/"
             class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
             aria-current="page"
-            >Dashboard</a
+            >Главная</nuxt-link
           >
-
-          <a
-            href="#"
+          <nuxt-link
+            v-for="category of categories.data"
+            :to="'/category/' + category.attributes.slug"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Team</a
-          >
-
-          <a
-            href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Projects</a
-          >
-
-          <a
-            href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Calendar</a
+            >{{ category.attributes.name }}</nuxt-link
           >
         </div>
       </div>
@@ -265,7 +258,7 @@ const handleToggleBurgerMenu = () => {
 };
 const handleLogout = () => {
   logout();
-  handleToggleProfileMenu();
   router.push("/");
+  handleToggleProfileMenu();
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <section>
+    <h1></h1>
     <div class="grid">
-      <h1>Новости</h1>
       <NewsList :articles="articles.data" />
       <div>{{}}</div>
     </div>
@@ -11,13 +11,12 @@
 <script setup>
 import NewsList from "../components/NewsList";
 const { find } = useStrapi();
-
 const {
   data: articles,
   pending,
   refresh,
   error,
-} = await useAsyncData("restaurant", () =>
+} = await useAsyncData("articles", () =>
   find("articles", { populate: "image" })
 );
 </script>
